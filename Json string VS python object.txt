@@ -1,0 +1,151 @@
+-When you call .json() on a server response:
+ The server sends JSON data as a string (e.g., {"key": "value"}).
+ .json() parses this JSON string into a Python object, such as a dictionary or list, so you can work with it in your code.
+ 
+ 
+--Why Use json.dumps() Afterward?
+-What .json() Does:
+Converts the server's JSON response into a Python object.
+Example:
+response = {"name": "Alice", "age": 25}  # JSON received from server
+data = response.json()  # Convert JSON to Python dict
+
+
+-What json.dumps() Does:
+ Converts a Python object back into a JSON string.
+
+
+-Why Format It with indent=4?
+The raw JSON string might not be formatted nicely. 
+For example:JSON
+{"name":"Alice","age":25}
+-Using indent=4 makes it pretty-printed, like this
+{
+    "name": "Alice",
+    "age": 25
+}
+
+
+-Workflow Explanation:
+Step 1: Server sends JSON (as a string).
+Step 2: .json() converts this JSON string into a Python object (e.g., a dictionary).
+Step 3: You work with the Python object in your code.
+Step 4: If you want to display, share, or save the data in JSON format, you use json.dumps().
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Example of the Entire Workflow:
+
+import requests
+import json
+
+# Step 1: Send a request and get a JSON response from the server
+response = requests.get("https://jsonplaceholder.typicode.com/users")
+data = response.json()  # Step 2: Convert JSON response to a Python object (list or dict)
+
+# Step 3: Work with the Python object (e.g., print a name)
+print(data[0]["name"])  # Output: Leanne Graham
+
+# Step 4: Convert the Python object back to a pretty JSON string
+pretty_data = json.dumps(data, indent=4)
+
+# Step 5: Display the pretty-printed JSON
+print(pretty_data)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+-When Do You Need Each?
+ Use .json() to convert JSON from the server into Python objects.
+ Use json.dumps() to convert Python objects back into JSON strings when you want to display, send, or save the data.
+ 
+ They serve opposite purposes:
+ .json(): JSON → Python object.
+ json.dumps(): Python object → JSON string.
+_____________________________________________________________________________________________________________________________________________________________________
+Example of json string and python object:
+
+JSON String:
+{
+  "name": "John Doe",
+  "age": 30,
+  "isEmployed": true,
+  "skills": ["Python", "Django", "REST APIs"],
+  "address": {
+    "street": "123 Main St",
+    "city": "Springfield",
+    "zipcode": "12345"
+  }
+}
+
+Python Object:
+{
+    "name": "John Doe",
+    "age": 30,
+    "isEmployed": True,
+    "skills": ["Python", "Django", "REST APIs"],
+    "address": {
+        "street": "123 Main St",
+        "city": "Springfield",
+        "zipcode": "12345"
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Key Differences:
+
+-Boolean values:
+ JSON uses true/false.
+ Python uses True/False.
+
+-Quotes:
+ JSON keys and string values are always enclosed in double quotes (").
+ Python keys can be in single or double quotes, but strings can use either.
+ 
+-None vs null:
+ In JSON: null
+ In Python: None
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-Using indent with JSON
+ When converting Python objects to JSON strings, you can use the indent parameter in json.dumps() to produce a pretty-printed JSON string.
+Example: Using indent in JSON String Formatting
+-Python:
+
+import json
+
+# Python object
+python_obj = {
+    "name": "John Doe",
+    "age": 30,
+    "isEmployed": True,
+    "skills": ["Python", "Django", "REST APIs"],
+    "address": {
+        "street": "123 Main St",
+        "city": "Springfield",
+        "zipcode": "12345"
+    }
+}
+
+# Convert Python object to JSON string with indentation
+json_string = json.dumps(python_obj, indent=4)
+
+print(json_string)
+----------------------------------------------
+OUTPUT:JSON
+
+{
+    "name": "John Doe",
+    "age": 30,
+    "isEmployed": true,
+    "skills": [
+        "Python",
+        "Django",
+        "REST APIs"
+    ],
+    "address": {
+        "street": "123 Main St",
+        "city": "Springfield",
+        "zipcode": "12345"
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+-In Python objects: Indentation is optional and purely for developer readability.
+-In JSON strings: Indentation is applied when serializing JSON for human readability using tools like json.dumps() with the indent parameter.
+
