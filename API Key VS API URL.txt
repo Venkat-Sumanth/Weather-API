@@ -1,0 +1,3 @@
+ API keys are used for authentication and authorization, ensuring that only authorized users or applications can access the API. 
+ The API URL is the endpoint where the API can be accessed, allowing clients to send requests and receive responses from the server. 
+ Together, they help secure and manage access to resources.
